@@ -1,105 +1,8 @@
 import { useState } from 'react';
+import { menuItems } from './menuItems';
 
-const categories = ['All', 'Mains', 'Snacks', 'Beverages', 'Desserts'];
-
-const menuItems = [
-  {
-    name: 'Dal Bhat Tarkari',
-    desc: 'Traditional Nepali set meal with lentil soup, rice, vegetables, and pickles.',
-    price: 'Rs 250',
-    category: 'Mains',
-    tag: 'Bestseller',
-    image: 'https://images.pexels.com/photos/1907642/pexels-photo-1907642.jpeg?auto=compress&cs=tinysrgb&w=400',
-  },
-  {
-    name: 'Buff Momo (Steamed)',
-    desc: 'Juicy Nepali dumplings filled with seasoned buffalo meat, served with achar.',
-    price: 'Rs 180',
-    category: 'Snacks',
-    tag: 'Popular',
-    image: 'https://images.pexels.com/photos/3964344/pexels-photo-3964344.jpeg?auto=compress&cs=tinysrgb&w=400',
-  },
-  {
-    name: 'Veg Thali',
-    desc: 'Complete vegetarian platter with rice, dal, sabzi, roti, and homemade pickle.',
-    price: 'Rs 220',
-    category: 'Mains',
-    tag: null,
-    image: 'https://images.pexels.com/photos/2347311/pexels-photo-2347311.jpeg?auto=compress&cs=tinysrgb&w=400',
-  },
-  {
-    name: 'Chicken Chowmein',
-    desc: 'Stir-fried noodles with tender chicken, fresh vegetables, and Nepali spices.',
-    price: 'Rs 200',
-    category: 'Mains',
-    tag: null,
-    image: 'https://images.pexels.com/photos/1640777/pexels-photo-1640777.jpeg?auto=compress&cs=tinysrgb&w=400',
-  },
-  {
-    name: 'Samosa (2 pcs)',
-    desc: 'Crispy fried pastry filled with spiced potatoes and peas, served with chutney.',
-    price: 'Rs 40',
-    category: 'Snacks',
-    tag: null,
-    image: 'https://images.pexels.com/photos/4449068/pexels-photo-4449068.jpeg?auto=compress&cs=tinysrgb&w=400',
-  },
-  {
-    name: 'Masala Milk Tea',
-    desc: 'Aromatic spiced Nepali tea brewed with ginger, cardamom, and whole spices.',
-    price: 'Rs 50',
-    category: 'Beverages',
-    tag: 'Bestseller',
-    image: 'https://images.pexels.com/photos/2074130/pexels-photo-2074130.jpeg?auto=compress&cs=tinysrgb&w=400',
-  },
-  {
-    name: 'Chatpate',
-    desc: 'A spicy, tangy Nepali street snack with puffed rice, vegetables, and tamarind.',
-    price: 'Rs 60',
-    category: 'Snacks',
-    tag: 'Street Fave',
-    image: 'https://images.pexels.com/photos/1099680/pexels-photo-1099680.jpeg?auto=compress&cs=tinysrgb&w=400',
-  },
-  {
-    name: 'Black Coffee',
-    desc: 'Rich Nepali highland coffee, served hot or iced.',
-    price: 'Rs 120',
-    category: 'Beverages',
-    tag: null,
-    image: 'https://images.pexels.com/photos/302899/pexels-photo-302899.jpeg?auto=compress&cs=tinysrgb&w=400',
-  },
-  {
-    name: 'Sel Roti with Yogurt',
-    desc: 'Traditional Nepali ring-shaped sweet fried bread served with creamy yogurt.',
-    price: 'Rs 100',
-    category: 'Desserts',
-    tag: 'Traditional',
-    image: 'https://images.pexels.com/photos/1126359/pexels-photo-1126359.jpeg?auto=compress&cs=tinysrgb&w=400',
-  },
-  {
-    name: 'Kheer',
-    desc: 'Creamy rice pudding slow-cooked with milk, sugar, and aromatic cardamom.',
-    price: 'Rs 130',
-    category: 'Desserts',
-    tag: null,
-    image: 'https://images.pexels.com/photos/5848515/pexels-photo-5848515.jpeg?auto=compress&cs=tinysrgb&w=400',
-  },
-  {
-    name: 'Fried Momo',
-    desc: 'Golden crispy fried dumplings with savory meat filling and spicy achar.',
-    price: 'Rs 200',
-    category: 'Snacks',
-    tag: null,
-    image: 'https://images.pexels.com/photos/4397919/pexels-photo-4397919.jpeg?auto=compress&cs=tinysrgb&w=400',
-  },
-  {
-    name: 'Lemonade (Fresh)',
-    desc: 'Refreshing fresh-squeezed lemonade with mint and a hint of rock salt.',
-    price: 'Rs 80',
-    category: 'Beverages',
-    tag: null,
-    image: 'https://images.pexels.com/photos/2109099/pexels-photo-2109099.jpeg?auto=compress&cs=tinysrgb&w=400',
-  },
-];
+// Extract unique categories from menuItems
+const categories = ['All', ...Array.from(new Set(menuItems.map(item => item.category)))];
 
 export default function Menu() {
   const [activeCategory, setActiveCategory] = useState('All');
@@ -128,11 +31,10 @@ export default function Menu() {
             <button
               key={cat}
               onClick={() => setActiveCategory(cat)}
-              className={`px-5 py-2 rounded-full text-sm font-semibold transition-all duration-200 ${
-                activeCategory === cat
+              className={`px-5 py-2 rounded-full text-sm font-semibold transition-all duration-200 ${activeCategory === cat
                   ? 'bg-amber-500 text-stone-900 shadow-md shadow-amber-200'
                   : 'bg-stone-100 text-stone-600 hover:bg-stone-200'
-              }`}
+                }`}
             >
               {cat}
             </button>
@@ -145,24 +47,12 @@ export default function Menu() {
               key={item.name}
               className="group bg-white rounded-2xl overflow-hidden border border-stone-100 shadow-sm hover:shadow-lg hover:-translate-y-1 transition-all duration-300"
             >
-              <div className="relative h-44 overflow-hidden">
-                <img
-                  src={item.image}
-                  alt={item.name}
-                  className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
-                />
-                {item.tag && (
-                  <span className="absolute top-3 left-3 bg-amber-500 text-stone-900 text-xs font-bold px-2.5 py-1 rounded-full">
-                    {item.tag}
-                  </span>
-                )}
-              </div>
               <div className="p-4">
                 <div className="flex items-start justify-between gap-2">
                   <h3 className="font-bold text-stone-900 leading-snug">{item.name}</h3>
-                  <span className="text-amber-600 font-bold text-sm whitespace-nowrap">{item.price}</span>
+                  <span className="text-amber-600 font-bold text-sm whitespace-nowrap">Rs {item.price}</span>
                 </div>
-                <p className="mt-1.5 text-stone-500 text-xs leading-relaxed">{item.desc}</p>
+                <p className="mt-1.5 text-stone-500 text-xs leading-relaxed">{item.category}</p>
               </div>
             </div>
           ))}
